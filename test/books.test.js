@@ -28,4 +28,21 @@ describe("The /books endpoint", () => {
             expect(response.body[0]).toHaveProperty('author')
         })
     });
+
+    describe(" for POST requests", () => {
+        
+        test("creates a new book and responds with the new book", async () => {
+            // SEAT
+            const newBook = { title: "The Scout Mindset", author: "Julia Galef" }
+
+            const response = await request(app).post('/books').send(newBook)
+
+            expect(response.statusCode).toBe(201)
+            expect(response.body).toHaveProperty("id")
+            expect(response.body.title).toHaveProperty(newBook.title)
+            expect(response.body.author).toHaveProperty(newBook.author)
+        })
+    })
+
+    
 });
